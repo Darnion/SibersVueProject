@@ -98,6 +98,7 @@ export default {
       contractorCompanyInput: '',
       directorInput: '',
       workersInput: [],
+      API_Path: 'https://localhost:7292/',
     }
   },
   computed: {
@@ -127,13 +128,13 @@ export default {
       var custComp = '';
       var contComp = '';
 
-      await axios.get(`https://localhost:7292/Company/${this.customerCompanyInput}`)
+      await axios.get(`${this.API_Path}Company/${this.customerCompanyInput}`)
         .then(response => {
           custComp = response.data["id"]
         })
         .catch(error => {
           console.log(error.response);
-          axios.post("https://localhost:7292/Company",
+          axios.post(`${this.API_Path}Company`,
           {
             title: this.customerCompanyInput,
           })
@@ -142,13 +143,13 @@ export default {
           });
         });
 
-      await axios.get(`https://localhost:7292/Company/${this.contractorCompanyInput}`)
+      await axios.get(`${this.API_Path}Company/${this.contractorCompanyInput}`)
         .then(response => {
           contComp = response.data["id"]
         })
         .catch(error => {
           console.log(error.response);
-          axios.post("https://localhost:7292/Company",
+          axios.post(`${this.API_Path}Company`,
           {
             title: this.contractorCompanyInput,
           })
@@ -157,7 +158,7 @@ export default {
           });
         });
 
-      await axios.post("https://localhost:7292/Project",
+      await axios.post(`${this.API_Path}Project`,
         {
           title: this.titleInput,
           customerCompanyId: custComp,
